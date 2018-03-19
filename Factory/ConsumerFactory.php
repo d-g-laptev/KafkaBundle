@@ -25,6 +25,8 @@ class ConsumerFactory extends AbstractKafkaFactory
         $this->getReadyConfiguration($consumerData['configuration']);
         $this->configuration->setDefaultTopicConf($this->topicConfiguration);
 
+        $this->configuration->set('metadata.broker.list', implode(',', $consumerData['brokers']));
+
         // Set a rebalance callback to log automatically assign partitions
         $this->configuration->setRebalanceCb(PartitionAssignment::handlePartitionsAssignment());
 
